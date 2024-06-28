@@ -1,15 +1,22 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using FetWaveWWW.Data.DTOs.Events;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Text.Json;
+using System.Threading;
 
 namespace FetWaveWWW.Data;
 
 public class FetWaveWWWContext : IdentityDbContext<IdentityUser>
 {
     public FetWaveWWWContext(DbContextOptions<FetWaveWWWContext> options)
-        : base(options)
-    {
-    }
+        : base(options) {}
+
+    public DbSet<CalendarEvent> Events { get; set; }
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<DressCode> DressCodes { get; set; }
+    public DbSet<Region> Regions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

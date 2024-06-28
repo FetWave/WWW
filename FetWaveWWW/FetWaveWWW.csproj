@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20240628190640_catToEventCat.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.Discord" Version="8.0.0" />
     <PackageReference Include="Blazored.TextEditor" Version="1.1.0" />
     <PackageReference Include="Google.Apis.Calendar.v3" Version="1.68.0.3430" />

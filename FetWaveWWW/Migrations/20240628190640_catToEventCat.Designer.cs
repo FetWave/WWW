@@ -4,6 +4,7 @@ using FetWaveWWW.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FetWaveWWW.Migrations
 {
     [DbContext(typeof(FetWaveWWWContext))]
-    partial class FetWaveWWWContextModelSnapshot : ModelSnapshot
+    [Migration("20240628190640_catToEventCat")]
+    partial class catToEventCat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,19 +56,11 @@ namespace FetWaveWWW.Migrations
                     b.Property<int?>("DressCodeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("EndDate")
-                        .IsRequired()
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("RegionId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("StartDate")
-                        .IsRequired()
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -95,26 +90,7 @@ namespace FetWaveWWW.Migrations
 
                     b.HasIndex("UpdatedUserId");
 
-                    b.HasIndex("StartDate", "EndDate");
-
                     b.ToTable("Events");
-                });
-
-            modelBuilder.Entity("FetWaveWWW.Data.DTOs.Events.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("FetWaveWWW.Data.DTOs.Events.DressCode", b =>
@@ -135,6 +111,23 @@ namespace FetWaveWWW.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DressCodes");
+                });
+
+            modelBuilder.Entity("FetWaveWWW.Data.DTOs.Events.EventCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("FetWaveWWW.Data.DTOs.Events.Region", b =>
@@ -364,7 +357,7 @@ namespace FetWaveWWW.Migrations
 
             modelBuilder.Entity("FetWaveWWW.Data.DTOs.Events.CalendarEvent", b =>
                 {
-                    b.HasOne("FetWaveWWW.Data.DTOs.Events.Category", "Category")
+                    b.HasOne("FetWaveWWW.Data.DTOs.Events.EventCategory", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId");
 

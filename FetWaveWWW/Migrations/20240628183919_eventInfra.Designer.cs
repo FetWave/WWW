@@ -4,6 +4,7 @@ using FetWaveWWW.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FetWaveWWW.Migrations
 {
     [DbContext(typeof(FetWaveWWWContext))]
-    partial class FetWaveWWWContextModelSnapshot : ModelSnapshot
+    [Migration("20240628183919_eventInfra")]
+    partial class eventInfra
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,19 +56,11 @@ namespace FetWaveWWW.Migrations
                     b.Property<int?>("DressCodeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("EndDate")
-                        .IsRequired()
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("RegionId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("StartDate")
-                        .IsRequired()
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -94,8 +89,6 @@ namespace FetWaveWWW.Migrations
                         .IsUnique();
 
                     b.HasIndex("UpdatedUserId");
-
-                    b.HasIndex("StartDate", "EndDate");
 
                     b.ToTable("Events");
                 });

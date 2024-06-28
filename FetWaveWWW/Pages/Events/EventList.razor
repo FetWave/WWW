@@ -1,0 +1,50 @@
+﻿@page "/events/"
+@using System.Web;
+@using System.Globalization
+@{
+    var rsvpClasses = new Dictionary<string, List<string>>
+    {
+        {"NA", new() { "btn-primary", "btn-outline-primary" } },
+        {"Going", new() { "btn-success", "btn-outline-success" } },
+        {"MaybeGoing", new() { "btn-secondary", "btn-outline-secondary" }}
+    };
+
+    var ti = new CultureInfo("en-US", false).TextInfo;
+}
+
+<h3>Events</h3>
+
+<div>
+    <label>From Date:</label>
+    <input type="date" @bind="CalendarStartDate"/>
+</div>
+
+
+<div>
+    <label>To Date:</label>
+    <input type="date" @bind="CalendarEndDate"/>
+</div>
+
+
+<div>
+    Location
+    <br/>
+    <span>
+        State Filter:
+        <select @onchange="StateOnChange">
+            <option value=""></option>
+            @foreach(var state in States ?? [])
+            {
+                <option value="@state">@state</option>
+            }
+        </select>
+        Region Filter:
+        <select @onchange="RegionOnChange">
+            <option value=""></option>
+            @foreach (var region in regionsForState ?? [])
+            {
+                <option value="@region.Id">@ti.ToTitleCase(region.Name ?? "")</option>
+            }
+        </select>
+    </span>
+</div>
